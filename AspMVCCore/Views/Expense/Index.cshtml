@@ -17,6 +17,7 @@
                 <tr>
                     <th>ExpenseName</th>
                     <th>Amount</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,12 @@
                 <tr>
                     <td width="30%">@item.ExpenseName</td>
                     <td width="30%">@item.Amount</td>
+                    <td width="40%">
+                        <div class="col-6 text-right">
+                            <a asp-controller="Expense" asp-action="Update" asp-route-Id="@item.Id" class="btn btn-primary">Update</a>
+                            <a asp-controller="Expense" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger">Delete</a>
+                        </div>
+                    </td>
                 </tr>
                 }
             </tbody>

@@ -36,5 +36,56 @@ namespace AspMVCCore.Controllers
             }
             return View(_Expense);
         }
+        
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var obj = _db.Expenses.Find(id);
+            if (obj == null)
+                return NotFound();
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePost(int? Id)
+        {
+            var obj = _db.Expenses.Find(Id);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+            _db.Expenses.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Update(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var obj = _db.Expenses.Find(id);
+            if (obj == null)
+                return NotFound();
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Update(Expense _Expense)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Expenses.Update(_Expense);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(_Expense);
+        }
     }
 }
